@@ -3,7 +3,7 @@ import logo from '../../../assets/logo.svg';
 
 const Footer = () => {
     return (
-        <footer className="footer py-28 p-10 bg-base-200 text-base-content bg-zinc-900 ">
+        <footer className="footer py-28 p-10 text-base-content bg-zinc-900 ">
             <div className='text-white'>
                 <img src={logo} alt="" />
                 <p>ACME Industries Ltd.<br />Providing reliable tech since 1992</p>

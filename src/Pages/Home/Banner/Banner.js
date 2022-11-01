@@ -1,5 +1,4 @@
 import React from 'react';
-import './Banner.css';
 import img1 from '../../../assets/images/banner/1.jpg';
 import img2 from '../../../assets/images/banner/2.jpg';
 import img3 from '../../../assets/images/banner/3.jpg';
@@ -20,7 +19,7 @@ const Banner = () => {
     ]
 
     return (
-        <div className="carousel w-full">
+        <div className="carousel w-full my-10">
             {
                 bannerData.map(slide => <BannerItem
                     key={slide.id}

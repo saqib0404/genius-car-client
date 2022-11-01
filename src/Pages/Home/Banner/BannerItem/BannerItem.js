@@ -1,4 +1,5 @@
 import React from 'react';
+import './BannerItem.css';
 
 const BannerItem = ({ slide }) => {
     const { image, id, next, prev } = slide
@@ -6,7 +7,7 @@ const BannerItem = ({ slide }) => {
     return (
         <div id={`slide${id}`} className="carousel-item relative w-full text-white">
             <div className='img-gradient'>
-                <img alt="" src={image} className="w-full h-full rounded-md img-gradient" />
+                <img alt="" src={image} className="w-full h-full rounded-xl img-gradient" />
             </div>
             <div className="absolute flex justify-end transform -translate-y-1/2 left-5 right-5 bottom-0">
                 <a href={`#slide${prev}`} className="btn btn-circle btn-outline btn-warning mr-5">❮</a>

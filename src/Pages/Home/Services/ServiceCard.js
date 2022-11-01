@@ -11,9 +11,9 @@ const ServiceCard = ({ service }) => {
             <div className="pt-6 px-6">
                 <h2 className="card-title font-bold text-2xl">{title}</h2>
                 <div className="flex justify-between my-3 items-center">
-                    <p className='text-orange-700 font-semibold text-xl'>Price: $ {price}</p>
+                    <p className='text-orange-600 font-semibold text-xl'>Price: $ {price}</p>
                     <button>
-                        <p className='text-orange-700 font-semibold text-xl'><FaArrowRight></FaArrowRight></p>
+                        <p className='text-orange-600 font-semibold text-xl'><FaArrowRight></FaArrowRight></p>
                     </button>
                 </div>
             </div>

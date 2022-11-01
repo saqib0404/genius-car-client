@@ -5,7 +5,8 @@ import logo from '../../../assets/logo.svg';
 const Header = () => {
 
     const menuItems = <>
-        <Link to="/" className='font-semibold'><li>Home</li></Link>
+        <Link to="/" className='font-semibold px-2'><li>Home</li></Link>
+        <Link to="/login" className='font-semibold px-2'><li>Login</li></Link>
     </>
 
     return (
@@ -29,7 +30,7 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <button className='btn btn-outline btn-warning'>Appointment</button>
+                <button className='btn btn-outline btn-error'>Appointment</button>
             </div>
         </div>
     );

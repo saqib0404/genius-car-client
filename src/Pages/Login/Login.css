@@ -1,0 +1,6 @@
+.btn-social{
+    border-radius: 50%;
+}
+.btn-social:hover{
+    transform: scale(1.2);
+}

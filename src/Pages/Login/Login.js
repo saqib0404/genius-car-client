@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
+import './Login.css'
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
-    const { logIn } = useContext(AuthContext);
+    const { logIn, googleLogin } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider();
 
+    // Login
     const handleLogin = e => {
         e.preventDefault();
         const form = e.target;
@@ -22,6 +27,18 @@ const Login = () => {
             })
     }
 
+    // Google Login
+    const handleGoogleLogin = () => {
+        googleLogin(googleProvider)
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
+
+
     return (
         <div>
             <div className="hero mt-16 mb-20">
@@ -30,7 +47,7 @@ const Login = () => {
                         <img className='w-4/5' src={img} alt="" />
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <form onSubmit={handleLogin} className="card-body">
+                        <form onSubmit={handleLogin} className="card-body pb-6">
                             <h1 className="text-4xl font-semibold text-center">Login</h1>
                             <div className="form-control">
                                 <label className="label">
@@ -51,6 +68,12 @@ const Login = () => {
                                 <input className="btn border-0 bg-orange-600" type="submit" value="LOGIN" />
                             </div>
                         </form>
+                        <p className='text-center text-zinc-500 mb-6'>Or Login with</p>
+                        <div className='flex justify-around w-1/2 mx-auto mb-8'>
+                            <button className='px-4 py-4 btn-social bg-slate-100'><FaFacebook className='text-blue-700'></FaFacebook></button>
+                            <button className='px-4 py-4 btn-social bg-slate-100'><FaLinkedin className='text-blue-700'></FaLinkedin></button>
+                            <button onClick={handleGoogleLogin} className='px-4 py-4 btn-social bg-slate-100'><FaGoogle className='text-blue-700'></FaGoogle></button>
+                        </div>
                         <p className='text-center mb-16'>New to Genius Car? <Link className='text-orange-600 font-semibold' to='/signup'>Sign Up</Link></p>
                     </div>
                 </div>

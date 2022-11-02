@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
-import { GoogleAuthProvider } from 'firebase/auth';
+import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
-    const { logIn, googleLogin } = useContext(AuthContext);
+    const { logIn, googleLogin, facebookLogin } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
 
     // Login
     const handleLogin = e => {
@@ -30,6 +31,17 @@ const Login = () => {
     // Google Login
     const handleGoogleLogin = () => {
         googleLogin(googleProvider)
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
+
+    // Facebook Login
+    const handleFacebookLogin = () => {
+        facebookLogin(facebookProvider)
             .then(result => {
                 console.log(result.user);
             })
@@ -61,7 +73,7 @@ const Login = () => {
                                 </label>
                                 <input name='password' type="text" placeholder="password" className="input input-bordered" required />
                                 <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                    <a href="#a" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
@@ -70,9 +82,9 @@ const Login = () => {
                         </form>
                         <p className='text-center text-zinc-500 mb-6'>Or Login with</p>
                         <div className='flex justify-around w-1/2 mx-auto mb-8'>
-                            <button className='px-4 py-4 btn-social bg-slate-100'><FaFacebook className='text-blue-700'></FaFacebook></button>
-                            <button className='px-4 py-4 btn-social bg-slate-100'><FaLinkedin className='text-blue-700'></FaLinkedin></button>
-                            <button onClick={handleGoogleLogin} className='px-4 py-4 btn-social bg-slate-100'><FaGoogle className='text-blue-700'></FaGoogle></button>
+                            <button onClick={handleFacebookLogin} className='px-4 py-4 btn-social transition-transform duration-200 bg-slate-100'><FaFacebook className='text-blue-700'></FaFacebook></button>
+                            <button className='px-4 py-4 btn-social transition-transform duration-200 bg-slate-100'><FaLinkedin className='text-blue-700'></FaLinkedin></button>
+                            <button onClick={handleGoogleLogin} className='px-4 py-4 btn-social transition-transform duration-200 bg-slate-100'><FaGoogle className='text-blue-700'></FaGoogle></button>
                         </div>
                         <p className='text-center mb-16'>New to Genius Car? <Link className='text-orange-600 font-semibold' to='/signup'>Sign Up</Link></p>
                     </div>

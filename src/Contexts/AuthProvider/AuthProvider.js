@@ -20,8 +20,13 @@ const AuthProvider = ({ children }) => {
     }
 
     // Login with Google
-    const googleLogin = Provider => {
-        return signInWithPopup(auth, Provider);
+    const googleLogin = provider => {
+        return signInWithPopup(auth, provider);
+    }
+
+    // Login with facebook
+    const facebookLogin = provider => {
+        return signInWithPopup(auth, provider);
     }
 
     useEffect(() => {
@@ -38,6 +43,7 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         logIn,
+        facebookLogin,
         googleLogin,
     }
 

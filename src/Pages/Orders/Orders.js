@@ -18,6 +18,7 @@ const Orders = () => {
     }, [user?.email])
     console.log(orders);
 
+    // Delete
     const handleDelete = id => {
         const proceed = window.confirm('Do you want to delete this order?')
         if (proceed) {
@@ -35,6 +36,30 @@ const Orders = () => {
         }
     }
 
+    // Update
+    const handleUpdate = id => {
+        fetch(`http://localhost:5000/orders/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ status: "Approved" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.matchedCount > 0) {
+                    const remaining = orders.filter(odr => odr._id !== id);
+                    const approving = orders.find(odr => odr._id === id)
+                    approving.status = "Approved";
+
+                    const newOrder = [approving, ...remaining];
+                    setOrders(newOrder);
+                }
+            })
+
+    }
+
     return (
         <div className='my-20'>
             <div className="overflow-x-auto w-full">
@@ -46,6 +71,7 @@ const Orders = () => {
                             <th>Name</th>
                             <th>Phone Number</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,6 +80,7 @@ const Orders = () => {
                                 key={signleOrder._id}
                                 signleOrder={signleOrder}
                                 handleDelete={handleDelete}
+                                handleUpdate={handleUpdate}
                             ></SingleOrder>)
                         }
                     </tbody>

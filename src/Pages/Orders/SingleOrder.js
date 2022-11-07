@@ -2,8 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-const SingleOrder = ({ signleOrder, handleDelete }) => {
-    const { serviceName, customer, phone, service, price, _id } = signleOrder;
+const SingleOrder = ({ signleOrder, handleDelete, handleUpdate }) => {
+    const { serviceName, customer, phone, service, price, _id, status } = signleOrder;
     const [orderedService, setOrderedService] = useState({});
 
     useEffect(() => {
@@ -39,7 +39,10 @@ const SingleOrder = ({ signleOrder, handleDelete }) => {
             <td>
                 ${price}
             </td>
-        </tr>
+            <td>
+                <button onClick={() => handleUpdate(_id)} className={`btn ${status ? "btn-success" : "btn-error"}`}>{status ? status : "Pending"}</button>
+            </td>
+        </tr >
     );
 };
 

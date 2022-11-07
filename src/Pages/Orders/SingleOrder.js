@@ -1,0 +1,46 @@
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+
+const SingleOrder = ({ signleOrder, handleDelete }) => {
+    const { serviceName, customer, phone, service, price, _id } = signleOrder;
+    const [orderedService, setOrderedService] = useState({});
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/services/${service}`)
+            .then(res => res.json())
+            .then(data => setOrderedService(data))
+    }, [service])
+
+    return (
+        <tr>
+            <th>
+                <button onClick={() => handleDelete(_id)} className='btn rounded-full w-12'>X</button>
+            </th>
+            <td>
+                <div className="flex items-center space-x-3">
+                    <div className="avatar">
+                        <div className="w-24 rounded h-24">
+                            <img src={orderedService.img} alt="Avatar Tailwind CSS Component" />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="font-bold">{serviceName}</div>
+                        <div className="text-sm opacity-50">United States</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                {customer}
+            </td>
+            <td>
+                {phone}
+            </td>
+            <td>
+                ${price}
+            </td>
+        </tr>
+    );
+};
+
+export default SingleOrder;

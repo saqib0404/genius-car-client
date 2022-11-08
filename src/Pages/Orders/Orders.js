@@ -6,17 +6,26 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import SingleOrder from './SingleOrder';
 
 const Orders = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [orders, setOrders] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    return logOut()
+                }
+                return res.json()
+            })
             .then(data => {
                 setOrders(data)
             })
-    }, [user?.email])
-    console.log(orders);
+    }, [user?.email, logOut])
+    // console.log(orders);
 
     // Delete
     const handleDelete = id => {

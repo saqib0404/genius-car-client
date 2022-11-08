@@ -5,6 +5,7 @@ import img from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { userAuthToken } from '../../utilities/authToke';
 
 const Login = () => {
     const { logIn, googleLogin, facebookLogin } = useContext(AuthContext);
@@ -25,25 +26,27 @@ const Login = () => {
         logIn(email, password)
             .then(result => {
                 const user = result.user;
-                const currentUser = {
-                    email: user?.email
-                }
-                console.log(currentUser);
-
-                fetch(('https://genius-car-server-jade-pi.vercel.app/jwt'), {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(currentUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        localStorage.setItem('genius-token', data.token)
-                        form.reset();
-                        navigate(from, { replace: true })
-                    })
+                // const currentUser = {
+                //     email: user?.email
+                // }
+                // console.log(currentUser);
+                userAuthToken(user);
+                form.reset();
+                navigate(from, { replace: true })
+                // fetch(('https://genius-car-server-jade-pi.vercel.app/jwt'), {
+                //     method: 'POST',
+                //     headers: {
+                //         'content-type': 'application/json'
+                //     },
+                //     body: JSON.stringify(currentUser)
+                // })
+                //     .then(res => res.json())
+                //     .then(data => {
+                //         console.log(data);
+                //         localStorage.setItem('genius-token', data.token)
+                //         form.reset();
+                //         navigate(from, { replace: true })
+                //     })
 
             })
             .catch(e => {
@@ -55,7 +58,10 @@ const Login = () => {
     const handleGoogleLogin = () => {
         googleLogin(googleProvider)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
+                const user = result.user;
+                userAuthToken(user);
+                navigate(from, { replace: true });
             })
             .catch(e => {
                 console.log(e);
@@ -66,7 +72,10 @@ const Login = () => {
     const handleFacebookLogin = () => {
         facebookLogin(facebookProvider)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
+                const user = result.user;
+                userAuthToken(user);
+                navigate(from, { replace: true });
             })
             .catch(e => {
                 console.log(e);

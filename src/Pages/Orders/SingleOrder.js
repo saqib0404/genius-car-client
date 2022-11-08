@@ -7,7 +7,7 @@ const SingleOrder = ({ signleOrder, handleDelete, handleUpdate }) => {
     const [orderedService, setOrderedService] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${service}`)
+        fetch(`https://genius-car-server-jade-pi.vercel.app/services/${service}`)
             .then(res => res.json())
             .then(data => setOrderedService(data))
     }, [service])
